@@ -1,8 +1,8 @@
 
 # FlapCPEnum
 
-My doctoral thesis implementation: Enumeration of single vertex crease pattern with unit angle of 360/n degrees
-using parallel processing.
+[My doctoral thesis](https://dspace.jaist.ac.jp/dspace/bitstream/10119/16649/2/paper.pdf) implementation:
+Enumeration of single vertex crease pattern with unit angle of 360/n degrees using parallel processing.
 It works well on a supercomputer.
 
 ## Required environment
