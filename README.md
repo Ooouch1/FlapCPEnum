@@ -21,5 +21,5 @@ If you use Linux:
 For 22.5(=360/16) degree unit angle and using 4 processes, Run:
 
 ```
-mpiexec -n 4 flapCPEnum.exe 16 cp_exLSLparallel
+mpiexec -n 4 FlapCPEnum.exe 16 cp_exLSLparallel
 ```

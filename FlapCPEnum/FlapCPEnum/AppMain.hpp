@@ -158,61 +158,63 @@ public:
 				std::cout << "time: " << endTime - startTime << "[sec]" << std::endl;
 			}
 		}
-		else if (myID == 0) { //  serial algorithms
+		else {
 			double startTime, endTime;
 
 			MPI_Barrier(MPI_COMM_WORLD);
 			startTime = MPI_Wtime();
 
-			if (algorithmName == "kawasaki") {
-				auto enumerator = run<KawasakiFlapEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
-				std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
-			}
-			else if (algorithmName == "maekawa") {
-				auto enumerator = run<MaekawaFlapCPEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
-				std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
-				std::cout << "mv efficiency       " << enumerator.mvStats().searchEfficiency() << std::endl;
-				std::cout << "#pattern/#(k&m)     " << enumerator.sufficientRate() << std::endl;
-			}
-			else if (algorithmName == "cp") {
-				auto enumerator = run<FoldableFlapCPEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
-				std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
-				std::cout << "mv efficiency       " << enumerator.mvStats().searchEfficiency() << std::endl;
-				std::cout << "#pattern/#(k&m)     " << enumerator.sufficientRate() << std::endl;
-			}
-			else if (algorithmName == "cp_linearMV") {
-				auto enumerator = run<LinearMVFoldableFlapCPEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
-				std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
-				std::cout << "mv efficiency       " << enumerator.mvStats().searchEfficiency() << std::endl;
-				std::cout << "#pattern/#(k&m)     " << enumerator.sufficientRate() << std::endl;
-			}
-			else if (algorithmName == "cp_MVLSL") {
-				auto enumerator = run<MVLSLFoldableFlapCPEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
-				std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
-				std::cout << "mv efficiency       " << enumerator.mvStats().searchEfficiency() << std::endl;
-				std::cout << "#pattern/#(k&m)     " << enumerator.sufficientRate() << std::endl;
-			}
-			else if (algorithmName == "cp_ExMVLSL") {
-				auto enumerator = run<ExMVLSLFoldableFlapCPEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
-				std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
-				std::cout << "mv efficiency       " << enumerator.mvStats().searchEfficiency() << std::endl;
-				std::cout << "#pattern/#(k&m)     " << enumerator.sufficientRate() << std::endl;
-			}
-			else {
-				std::cerr << "No such algorithm: " << algorithmName << std::endl;
-				printParameterHelp();
-				return 1;
-			}
+			if (myID == 0) { //  serial algorithms
 
+				if (algorithmName == "kawasaki") {
+					auto enumerator = run<KawasakiFlapEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
+					std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
+				}
+				else if (algorithmName == "maekawa") {
+					auto enumerator = run<MaekawaFlapCPEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
+					std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
+					std::cout << "mv efficiency       " << enumerator.mvStats().searchEfficiency() << std::endl;
+					std::cout << "#pattern/#(k&m)     " << enumerator.sufficientRate() << std::endl;
+				}
+				else if (algorithmName == "cp") {
+					auto enumerator = run<FoldableFlapCPEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
+					std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
+					std::cout << "mv efficiency       " << enumerator.mvStats().searchEfficiency() << std::endl;
+					std::cout << "#pattern/#(k&m)     " << enumerator.sufficientRate() << std::endl;
+				}
+				else if (algorithmName == "cp_linearMV") {
+					auto enumerator = run<LinearMVFoldableFlapCPEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
+					std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
+					std::cout << "mv efficiency       " << enumerator.mvStats().searchEfficiency() << std::endl;
+					std::cout << "#pattern/#(k&m)     " << enumerator.sufficientRate() << std::endl;
+				}
+				else if (algorithmName == "cp_MVLSL") {
+					auto enumerator = run<MVLSLFoldableFlapCPEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
+					std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
+					std::cout << "mv efficiency       " << enumerator.mvStats().searchEfficiency() << std::endl;
+					std::cout << "#pattern/#(k&m)     " << enumerator.sufficientRate() << std::endl;
+				}
+				else if (algorithmName == "cp_ExMVLSL") {
+					auto enumerator = run<ExMVLSLFoldableFlapCPEnumeration<true> >(placeCount, os, fileOutputIsNeeded);
+					std::cout << "kawasaki efficiency " << enumerator.kawasakiStats().searchEfficiency() << std::endl;
+					std::cout << "mv efficiency       " << enumerator.mvStats().searchEfficiency() << std::endl;
+					std::cout << "#pattern/#(k&m)     " << enumerator.sufficientRate() << std::endl;
+				}
+				else {
+					std::cerr << "No such algorithm: " << algorithmName << std::endl;
+					printParameterHelp();
+					MPI_Barrier(MPI_COMM_WORLD);
+					return 1;
+				}
+			}
 			MPI_Barrier(MPI_COMM_WORLD);
 			endTime = MPI_Wtime();
 
-			std::cout << " #pattern = " << os.toString() << std::endl;
-
-			std::cout << "time: " << endTime - startTime << "[sec]" << std::endl;
-
+			if (myID == 0) {
+				std::cout << " #pattern = " << os.toString() << std::endl;
+				std::cout << "time: " << endTime - startTime << "[sec]" << std::endl;
+			}
 		}
-
 
 		return 0;
 	}
