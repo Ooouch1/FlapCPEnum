@@ -5,6 +5,10 @@
 Enumeration of single vertex crease pattern with unit angle of 360/n degrees using parallel processing.
 It works well on a supercomputer.
 
+The subject is the same as my paper "Efficient enumeration of flat-foldable single vertex crease patterns",
+ Koji Ouchi and Ryuhei Uehara, IEICE Transactions on Information and Systems, E102-D(3):416–422, 2019. 
+ However, the algorithm is updated so that it performs better with parallel processing.
+
 ## Required environment
 
 If you use Windows:
